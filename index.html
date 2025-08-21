@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bạn có yêu tôi không</title>
+    <style>
+        #box-body {
+            background-color: #fff0f5;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #box-main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #box-ani {
+            text-align: center;
+        }
+        
+        #content, #content-2 {
+            font-size: 30px;
+            padding-bottom: 20px;
+            display: block;
+        }
+
+        .btn {
+            font-size: 18px;
+            padding: 10px 30px;
+            color: white;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        #btnYes {
+            background-color: #ff5c8d;
+        }
+
+        #btnNo {
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div id="box-body">
+        <div id="box-main">
+            <div id="box-ani">
+                <img id="img" src="./img/158074533@2x.png" alt="">
+                <span id="content">Bạn có yêu toiii khônggg</span>
+                <span id="content-2" style="display: none;">Thôi được rồi :(</span>
+            </div>
+            <div id="box-btn">
+                <button id="btnYes" class="btn">Có</button>
+                <button id="btnNo" class="btn">Không</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const boxMainElem = document.getElementById("box-main");
+        const spanTextElem = document.getElementById("content");
+        const spanTextElem2 = document.getElementById("content-2");
+        const btnYesElem = document.getElementById("btnYes");
+        const btnNoElem = document.getElementById("btnNo");
+        const imgElem = document.getElementById("img");
+
+        const lstData = [
+            {
+                index: 1,
+                content: "Bạn có yêu toiii khônggg",
+                btnNoElem: "Bạn nghiêm túc chứ...",
+                srcImg: "./img/158074548@2x.png",
+                scale: 1.5
+            },
+            {
+                index: 2,
+                content: "Bạn có yêu toiii khônggg",
+                btnNoElem: "Nghĩ lại đi mà?",
+                srcImg: "./img/158074527@2x.png",
+                scale: 1.5
+            },
+            {
+                index: 3,
+                content: "Bạn có yêu toiii khônggg",
+                btnNoElem: "Không được chọn cái này!",
+                srcImg: "./img/158074535@2x.png",
+                scale: 1.5
+            },
+            {
+                index: 4,
+                content: "Bạn có yêu toiii khônggg",
+                btnNoElem: "Mình sẽ buồn lắm đó...",
+                srcImg: "./img/158074546@2x.png",
+                scale: 1.5
+            },
+            {
+                index: 5,
+                content: "Bạn có yêu toiii khônggg",
+                btnNoElem: "Không được đâu :(",
+                srcImg: "./img/158074546@2x.png",
+                scale: 1.5
+            },
+        ];
+
+        let countClick = 0;
+        let fontsize = 18;
+        let scale = 1;
+        btnNoElem.addEventListener('click', () => {
+            if(btnYesElem.offsetWidth * 3 < window.innerWidth) {
+                if(countClick >= lstData.length) countClick = lstData.length - 1
+                spanTextElem.innerHTML = lstData[countClick].content;
+                btnNoElem.innerHTML = lstData[countClick].btnNoElem;
+                imgElem.src = lstData[countClick].srcImg;
+                fontsize = Number(fontsize * lstData[countClick].scale);
+                btnYesElem.style.fontSize = fontsize + 'px';
+                btnYesElem.style.padding = `${Number(window.getComputedStyle(btnYesElem).paddingTop.replace("px", '') * lstData[countClick].scale)}px ${Number(window.getComputedStyle(btnYesElem).paddingRight.replace("px", '') * lstData[countClick].scale)}px`;
+                countClick++;
+            } else {
+                spanTextElem2.style.display = 'block';
+                btnYesElem.innerHTML = "KHÔNG :("
+                btnYesElem.style.backgroundColor = '#007bff';
+                btnNoElem.style.display = 'none';
+                imgElem.src = "./img/158074534@2x.png";
+            }
+        });
+
+        btnYesElem.addEventListener('mousedown', () => {
+            btnYesElem.innerHTML = "Có -))"
+            btnYesElem.style.backgroundColor = '#ff5c8d';
+
+            setTimeout(() => {
+                spanTextElem2.style.display = 'none';
+                btnYesElem.style.display = 'none';
+                imgElem.src = "./img/158074544@2x.png";
+                spanTextElem.innerHTML = 'Toii biết bạn yêu toi mà >.< ❤️'
+            }, 500);
+        });
+    </script>
+</body>
+</html>
